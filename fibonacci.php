@@ -1,15 +1,19 @@
 <?php
 
-function fibonacci(): array
+function fibonacci(): void
 {
-    $sequence = [0, 1];
+    $x = 0;
+    $y = 1;
+
+    echo $x . ', ' . $y . ', ';
+
     for ($i = 1; $i <= 11; $i++) {
-        $previous = $sequence[$i - 1];
-        $current = $sequence[$i];
-        $sequence[] = $previous + $current;
+        echo ($x + $y) . ', ';
+        $y = $x + $y;
+        $x = $y - $x;
     }
-    return $sequence;
+
+    echo PHP_EOL;
 }
 
-$fibonacciSequence = fibonacci();
-echo join(', ', $fibonacciSequence) . PHP_EOL;
+fibonacci();
