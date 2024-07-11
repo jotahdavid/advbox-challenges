@@ -61,33 +61,18 @@ function getAllUsers(PDO $database): array
         return [];
     }
 
-    foreach ($users as $userIndex => $user) {
-        $userCreatedAt = new DateTime($user->created_at);
-        $userCreatedAtSeconds = (int) $userCreatedAt->format('s');
+    foreach ($users as $user) {
+        $userCreatedAtSeconds = (int) substr($user->created_at, -1);
 
         $isEven = $userCreatedAtSeconds % 2 === 0;
         if (!$isEven) {
+            $userCreatedAt = new DateTime($user->created_at);
+
             $userCreatedAtOneMonthLater = $userCreatedAt
                 ->add(new DateInterval('P1M'))
                 ->format('Y-m-d H:i:s');
 
-            try {
-                $database
-                    ->prepare('UPDATE users SET created_at = :created_at WHERE id = :id')
-                    ->execute([
-                        'id' => $user->id,
-                        'created_at' => $userCreatedAtOneMonthLater,
-                    ]);
-            } catch (PDOException $exception) {
-                die('Não foi possível atualizar os dados: "' . $exception->getMessage() . '"' . PHP_EOL);
-            }
-
-            $statement = $database->prepare('SELECT * FROM users WHERE id = :id');
-            $statement->execute([ 'id' => $user->id ]);
-
-            $fetchUser = $statement->fetchObject();
-
-            $users[$userIndex] = $fetchUser;
+            $user->created_at = $userCreatedAtOneMonthLater;
         }
     }
 
