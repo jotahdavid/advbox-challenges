@@ -38,15 +38,18 @@ function prepareDatabase(PDO $database): void
 function insertUsersToDatabase(PDO $database): void
 {
     $database->exec('DELETE FROM users');
+    $date = new DateTime();
 
     for ($i = 0; $i < 15; $i++) {
         $database
-            ->prepare('INSERT INTO users (name) VALUES (:name)')
+            ->prepare('INSERT INTO users (name, created_at, updated_at) VALUES (:name, :created_at, :updated_at)')
             ->execute([
                 'name' => 'Nome ' . $i + 1,
+                'created_at' => $date->format('Y-m-d H:i:s'),
+                'updated_at' => $date->format('Y-m-d H:i:s'),
             ]);
 
-        sleep($i % 2 === 0 ? 3 : 5);
+        $date->add(new DateInterval('PT1S'));
     }
 }
 
