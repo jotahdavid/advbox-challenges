@@ -37,7 +37,7 @@ function prepareDatabase(PDO $database): void
 
 function insertUsersToDatabase(PDO $database): void
 {
-    $database->exec('DELETE FROM users');
+    $database->exec('TRUNCATE users');
     $date = new DateTime();
 
     for ($i = 0; $i < 15; $i++) {
