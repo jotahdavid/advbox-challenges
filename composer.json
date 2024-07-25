@@ -1,0 +1,19 @@
+{
+    "name": "jotahdavid/rss-crawler",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "JotahDavid\\RssCrawler\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jhonatan David",
+            "email": "82552187+jotahdavid@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "ext-curl": "*",
+        "ext-dom": "*"
+    }
+}
