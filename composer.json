@@ -12,5 +12,8 @@
             "email": "82552187+jotahdavid@users.noreply.github.com"
         }
     ],
-    "require": {}
+    "require": {
+        "ext-curl": "*",
+        "ext-dom": "*"
+    }
 }
