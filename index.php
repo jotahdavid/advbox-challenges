@@ -67,11 +67,11 @@ foreach ($blogCategoriesQuery as $blogCategory) {
     $categoryPostsCount = (int) $matches[2];
 
     if ($categoryPostsCount <= 100) {
-        $blogCategoriesLevels['0-100'][] = $categoryName;
+        $blogCategoriesLevels['0-100'][$categoryPostsCount] = $categoryName;
     } else if ($categoryPostsCount <= 200) {
-        $blogCategoriesLevels['101-200'][] = $categoryName;
+        $blogCategoriesLevels['101-200'][$categoryPostsCount] = $categoryName;
     } else {
-        $blogCategoriesLevels['200+'][] = $categoryName;
+        $blogCategoriesLevels['200+'][$categoryPostsCount] = $categoryName;
     }
 }
 
