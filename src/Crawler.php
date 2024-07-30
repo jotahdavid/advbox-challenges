@@ -8,12 +8,12 @@ use DOMXPath;
 
 class Crawler
 {
-    public DOMXPath $xpath;
+    public DOMXPath $xPath;
 
     public function __construct()
     {
         $document = new DOMDocument();
-        $this->xpath = new DOMXPath($document);
+        $this->xPath = new DOMXPath($document);
     }
 
     public function createXPathFromUrl(string $url): DOMXPath
