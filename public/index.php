@@ -1,9 +1,13 @@
 <?php
 
-require_once 'vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use JotahDavid\RssCrawler\Crawlers\FolhaSPCrawler;
 use JotahDavid\RssCrawler\Crawlers\GazetaCrawler;
+use JotahDavid\RssCrawler\View;
+
+define('PUBLIC_PATH', __DIR__);
+define('VIEW_PATH', __DIR__ . '/../views');
 
 $gazetaCrawler = new GazetaCrawler();
 $gazetaNews = $gazetaCrawler->getNews();
@@ -11,10 +15,9 @@ $gazetaNews = $gazetaCrawler->getNews();
 $folhaSPCrawler = new FolhaSPCrawler();
 $folhaSPNews = $folhaSPCrawler->getNews();
 
-$response = [
+$view = new View('home', [
     'gazeta' => $gazetaNews,
     'folha' => $folhaSPNews,
-];
+]);
 
-header('Content-Type: application/json');
-die(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+echo $view->render();

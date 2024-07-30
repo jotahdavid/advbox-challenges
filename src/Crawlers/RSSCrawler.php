@@ -50,7 +50,7 @@ class RSSCrawler
         $newsContent = '';
 
         foreach ($newsContentNodes as $newsContentNode) {
-            $newsContent .= "<{$newsContentNode->nodeName}>" . $newsContentNode->textContent . "</{$newsContentNode->nodeName}>" . '\n';
+            $newsContent .= "<{$newsContentNode->nodeName}>" . $newsContentNode->textContent . "</{$newsContentNode->nodeName}>";
         }
 
         return $newsContent;
