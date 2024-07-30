@@ -19,7 +19,9 @@ class Crawler
     public function createXPathFromUrl(string $url): DOMXPath
     {
         $response = $this->getResponseFromUrl($url);
-        $contentType = str_contains($response->getContentType(), 'text/xml') ? ContentType::XML : ContentType::HTML;
+        $contentType = str_contains($response->getContentType(), 'xml')
+            ? ContentType::XML
+            : ContentType::HTML;
 
         return $this->createXPath($response->getBody(), $contentType);
     }
@@ -47,19 +49,13 @@ class Crawler
     public function getResponseFromUrl(string $url): Response
     {
         $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
         $body = curl_exec($curl);
         $contentType = curl_getinfo($curl, CURLINFO_CONTENT_TYPE);
-        $statusCode = curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
         curl_close($curl);
-
-        if ($statusCode === 301) {
-            $redirectUrl = curl_getinfo($curl, CURLINFO_REDIRECT_URL);
-
-            return $this->getResponseFromUrl($redirectUrl);
-        }
 
         return new Response($body, $contentType);
     }
