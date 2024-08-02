@@ -8,14 +8,6 @@ use DOMXPath;
 
 class Crawler
 {
-    public DOMXPath $xPath;
-
-    public function __construct()
-    {
-        $document = new DOMDocument();
-        $this->xPath = new DOMXPath($document);
-    }
-
     public function createXPathFromUrl(string $url): DOMXPath
     {
         $response = $this->getResponseFromUrl($url);
