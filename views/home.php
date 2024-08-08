@@ -160,6 +160,27 @@
                     </li>
                 <?php endforeach; ?>
             </ul>
+
+            <h2 class="news-portal__title">STJ</h2>
+            <ul>
+                <?php foreach ($stj as $news): ?>
+                    <li>
+                        <details>
+                            <summary>
+                                <h3><?= $news['title']; ?></h3>
+                                <p>
+                                    <em><?= strip_tags($news['description'], 'a'); ?></em>
+                                </p>
+                                <button class="read-more">Ler mais...</button>
+                            </summary>
+                            <article class="content">
+                                <?= $news['content']; ?>
+                                <button class="read-more">Ler mais...</button>
+                            </article>
+                        </details>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         </main>
 
         <script>
